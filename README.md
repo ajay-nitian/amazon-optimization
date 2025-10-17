@@ -164,3 +164,160 @@ You can test the application using the following mock ASINs:
 
 After optimizing, try clicking the **Optimization History** button (with the ASIN still in the input field) to see the history records stored in the MySQL database.
 
+
+
+
+
+
+
+Now after publish 
+
+# 🛒 Amazon Listing Optimizer
+
+An AI-powered web application that analyzes and optimizes Amazon product listings using OpenAI and web scraping.  
+It improves your titles, bullet points, and descriptions to enhance SEO and conversions.
+
+---
+
+## 🚀 Features
+- ✨ **AI Optimization** — Uses OpenAI to rewrite product titles, bullet points, and descriptions.
+- 🔍 **Amazon Scraper** — Automatically fetches live product details using the ASIN.
+- 💾 **PostgreSQL Database** — Stores optimized results and history.
+- ⚡ **Full-Stack App**
+  - **Backend:** Node.js + Express + Sequelize + PostgreSQL
+  - **Frontend:** React (Vite/CRA) + Axios
+- 🌐 **Deployed**
+  - Backend → [Render](https://render.com)
+  - Frontend → [Vercel](https://vercel.com)
+
+---
+
+## 🧩 Tech Stack
+| Layer | Technology |
+|-------|-------------|
+| Frontend | React, Axios |
+| Backend | Node.js, Express |
+| Database | PostgreSQL (via Sequelize ORM) |
+| AI | OpenAI API |
+| Hosting | Render (backend), Vercel (frontend) |
+
+---
+
+## 🧠 Architecture Overview
+Frontend (React) <----> Backend API (Express) <----> PostgreSQL (Render)
+|
+└──> OpenAI (for content optimization)
+
+yaml
+Copy code
+
+---
+
+## ⚙️ Local Setup
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/ajay-nitian/amazon-optimization.git
+cd amazon-optimization
+2️⃣ Install Dependencies
+bash
+Copy code
+cd backend
+npm install
+
+cd ../frontend
+npm install
+3️⃣ Create Environment Variables
+In /backend/.env
+env
+Copy code
+PORT=5000
+
+# PostgreSQL Connection
+DB_NAME=amazon_optimizer_db
+DB_USER=amazon_optimizer_db_user
+DB_PASSWORD=JY25OxjAIBREPH3NgcMiNVKZqAgIboaA
+DB_HOST=dpg-d3p6cv7diees73cf7sr0-a.oregon-postgres.render.com
+DB_PORT=5432
+DB_DIALECT=postgres
+
+# OpenAI API Key
+OPENAI_API_KEY=your_openai_api_key
+4️⃣ Run Backend Locally
+bash
+Copy code
+cd backend
+npm start
+Your backend will run at 👉 http://localhost:5000
+
+5️⃣ Run Frontend Locally
+bash
+Copy code
+cd frontend
+npm start
+Frontend runs at 👉 http://localhost:3000
+
+6️⃣ Connect Frontend to Backend
+In /frontend/src/OptimizationForm.js, update the API URL:
+
+js
+Copy code
+const response = await axios.post(
+  "https://amazon-optimization.onrender.com/api/optimize",
+  { asin }
+);
+🧾 API Endpoints
+Method	Endpoint	Description
+POST	/api/optimize	Scrape & optimize listing for a given ASIN
+GET	/api/history/:asin	Retrieve optimization history by ASIN
+
+📦 Deployment
+Backend (Render)
+Connect GitHub → Select amazon-optimization
+
+Root Directory: backend
+
+Build Command: npm install
+
+Start Command: npm start
+
+Add Environment Variables from .env
+
+Frontend (Vercel)
+Import project → Select frontend
+
+Build Command: npm run build
+
+Output Directory: build
+
+Add environment variables if needed.
+
+🧰 Troubleshooting
+❌ Database Connection Error
+Check if your Render PostgreSQL DB is running.
+
+Ensure credentials in .env match the Render connection tab.
+
+PostgreSQL uses SSL → add this in Sequelize config:
+
+js
+Copy code
+dialectOptions: {
+  ssl: {
+    require: true,
+    rejectUnauthorized: false
+  }
+}
+⚠️ CORS Issue
+If the frontend can’t reach the backend, enable CORS in backend/server.js:
+
+js
+Copy code
+app.use(cors({ origin: "*" }));
+👨‍💻 Author
+Ajay Yadav
+GitHub: @ajay-nitian
+
+🏁 License
+This project is open-source and free to use for educational purposes.
+
