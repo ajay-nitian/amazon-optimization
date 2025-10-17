@@ -1,31 +1,26 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
-const isRender = process.env.DB_HOST?.includes('.render.com'); // detect internal or external host
+const isRender = process.env.RENDER === 'true';
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT || 5432,
-    dialect: process.env.DB_DIALECT || 'postgres',
-    logging: false,
-    dialectOptions: isRender
-      ? {} // no SSL for internal Render connections
-      : {
-          ssl: {
-            require: true,
-            rejectUnauthorized: false
-          }
-        }
-  }
-);
+// ✅ Option 1: Use full DATABASE_URL if available
+const connectionString = process.env.DATABASE_URL || `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
+// ✅ Initialize Sequelize
+const sequelize = new Sequelize(connectionString, {
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,              // Render requires SSL for PostgreSQL
+      rejectUnauthorized: false,  // Avoid self-signed cert issues
+    },
+  },
+  logging: false,
+});
+
+// ✅ Test connection
 sequelize.authenticate()
   .then(() => console.log('✅ PostgreSQL connection established successfully.'))
-  .catch(err => console.error('❌ PostgreSQL connection failed:', err));
+  .catch((err) => console.error('❌ PostgreSQL connection failed:', err));
 
 module.exports = { sequelize };
-
