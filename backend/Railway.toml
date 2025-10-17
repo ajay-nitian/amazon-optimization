@@ -1,0 +1,10 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "npm install"
+
+[start]
+cmd = "npm start"
+
+[env]
+PORT = "5000"
+DB_DIALECT = "mysql"

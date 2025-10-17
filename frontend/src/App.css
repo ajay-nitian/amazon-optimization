@@ -1,0 +1,123 @@
+body {
+  margin: 0;
+  font-family: "Amazon Ember", Arial, sans-serif;
+  background-color: #232f3e; /* Amazon dark background */
+  color: #ffffff;
+}
+
+.App {
+  text-align: center;
+  padding: 40px;
+  background-color: #232f3e;
+  min-height: 100vh;
+}
+
+.app-header h1 {
+  font-size: 2.2rem;
+  color: #ff9900; /* Amazon orange */
+  margin-bottom: 10px;
+}
+
+.app-header p {
+  color: #cccccc;
+  font-size: 1rem;
+}
+
+input {
+  padding: 10px 14px;
+  width: 320px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+}
+
+button {
+  padding: 10px 16px;
+  background-color: #146eb4; /* Amazon blue */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0f4c75;
+}
+
+/* Cards for results */
+.results-container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.card {
+  background-color: #ffffff;
+  color: #232f3e;
+  width: 45%;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: left;
+}
+
+.card.original {
+  border-top: 5px solid #ff9900;
+}
+
+.card.optimized {
+  border-top: 5px solid #34a853;
+}
+
+.card h3 {
+  color: #232f3e;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+p {
+  line-height: 1.6;
+  color: #111;
+}
+
+/* History section */
+.history-section {
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #131a22;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.history-section h2 {
+  color: #ff9900;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.history-item {
+  background-color: #232f3e;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.history-item:hover {
+  background-color: #37475a;
+}
+
+/* Footer like Amazon */
+footer {
+  margin-top: 60px;
+  background-color: #131a22;
+  color: #ddd;
+  padding: 30px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
