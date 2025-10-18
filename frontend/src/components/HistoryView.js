@@ -6,26 +6,31 @@ function HistoryViewer({ asin }) {
 
   useEffect(() => {
     async function fetchHistory() {
+      if (!asin) return;
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/history/${asin}`);
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/history/${asin}`
+        );
         setHistory(data.history || []);
       } catch (err) {
-        console.error('Failed to load history:', err);
+        console.error('❌ Failed to load history:', err);
       }
     }
     fetchHistory();
   }, [asin]);
 
   return (
-    <div style={{ marginTop: '40px' }}>
+    <div style={{ marginTop: '40px', textAlign: 'center' }}>
       <h3>📜 Optimization History ({asin})</h3>
       {history.length === 0 ? (
         <p>No history found.</p>
       ) : (
-        <ul>
+        <ul style={{ listStyle: 'none', padding: 0 }}>
           {history.map((item) => (
-            <li key={item.id}>
-              <strong>{item.optimized_title}</strong> — {new Date(item.optimization_date).toLocaleString()}
+            <li key={item.id} style={{ marginBottom: '10px' }}>
+              <strong>{item.optimized_title}</strong>
+              <br />
+              <small>{new Date(item.optimization_date).toLocaleString()}</small>
             </li>
           ))}
         </ul>
